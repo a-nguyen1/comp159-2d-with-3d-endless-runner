@@ -1,49 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
+using Vector2 = System.Numerics.Vector2;
 
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Rigidbody rb;
-    private bool _canJump;
     private bool _isOnGround;
     private CapsuleCollider _capsuleCollider;
-    private Vector3 _jumpHeight = new Vector3(0, 10, 0);
 
-    void Start()
+    [SerializeField] private float jumpHeight = 1f;
+    [SerializeField] private float gravityScale = 10f;
+    private float _velocity;
+    [SerializeField] private LayerMask layersToHit;
+
+    private Ray _ray;
+    
+    
+    private void Start()
     {
         _capsuleCollider = GetComponent<CapsuleCollider>();
         _isOnGround = false;
-        _canJump = false;
-        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (_canJump)
+        _velocity += Physics.gravity.y * gravityScale * Time.deltaTime;
+        CheckForCollision();
+        if (_isOnGround)
         {
-            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
             {
-                _canJump = false;
-                transform.position += _jumpHeight * (10 * Time.deltaTime);
+                _velocity = Mathf.Sqrt(jumpHeight * -2 * (Physics.gravity.y * gravityScale));
             }
         }
-        Debug.Log(_isOnGround);
+        transform.Translate(new Vector3(0, _velocity, 0) * Time.deltaTime);
         
     }
-    
-    
-    private void OnCollisionEnter(Collision other)
+
+    private void CheckForCollision()
     {
-        GameObject temp = other.gameObject;
-        if (temp.CompareTag("Platform"))
+        _ray = new Ray(transform.position, -transform.up);
+        if (Physics.Raycast(_ray, out RaycastHit hit, layersToHit))
         {
-            _isOnGround = true;
-            _canJump = true;
+            if (hit.collider.gameObject.CompareTag("Platform"))
+            {
+                //Debug.Log("HIT");
+                _velocity = 0;
+                Vector3 surface = Physics.ClosestPoint(hit.collider.gameObject.transform.position, hit.collider,
+                    transform.position, transform.rotation); //+ Vector3.up * hit.collider.transform.position.y
+                
+                //Currently this is the best way I've gotten the floor snapping to work.
+                //Still ends up stuck in the ground sometimes.
+                transform.position = new Vector3(transform.position.x, surface.y + 0.501f, transform.position.z);
+                _isOnGround = true;
+            }
+        }
+        else
+        {
+            _isOnGround = false;
         }
     }
-
-
 }
