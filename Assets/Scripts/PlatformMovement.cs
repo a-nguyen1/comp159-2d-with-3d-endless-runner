@@ -12,7 +12,7 @@ public class PlatformMovement : MonoBehaviour
     private void Update()
     {
         _speed += accel * Time.deltaTime * 0.5f;
-        transform.position += Vector3.left * _speed * Time.deltaTime;
+        transform.position += Vector3.left * (_speed * Time.deltaTime);
         _speed += accel * Time.deltaTime * 0.5f;
     }
 }
