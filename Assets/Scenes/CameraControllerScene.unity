@@ -201,6 +201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 181655399}
   - component: {fileID: 181655400}
+  - component: {fileID: 181655401}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -242,6 +243,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 720647102}
+  totalhealthBar: {fileID: 329287365}
+  currenthealthBar: {fileID: 1102637842}
+--- !u!114 &181655401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181655398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1e13a9390cd8a14596160c0b90bef8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 720647103}
   totalhealthBar: {fileID: 329287365}
   currenthealthBar: {fileID: 1102637842}
 --- !u!1 &329287363
@@ -301,7 +317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9128d9c6c19010245beddb345f199d7a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83b98c84c8cd92e498aae7ee04c7b39b, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -453,6 +469,7 @@ GameObject:
   - component: {fileID: 720647101}
   - component: {fileID: 720647100}
   - component: {fileID: 720647102}
+  - component: {fileID: 720647103}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -608,6 +625,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc828aea6f9e2a547963ec24bc3e0759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 0
+--- !u!114 &720647103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720647095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566840776a53fcb409b6a93463f89c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 0
@@ -787,7 +817,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9128d9c6c19010245beddb345f199d7a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83b98c84c8cd92e498aae7ee04c7b39b, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
