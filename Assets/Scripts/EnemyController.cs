@@ -27,11 +27,12 @@ public class EnemyController : MonoBehaviour
     }
     
     void OnTriggerEnter(Collider other) {
-        // pScript = other.GetComponent<PlayerController>(); // TODO change to reference proper script
-        // if (pScript != null)
-        // {
-        //     // TODO check if enemy collides with player and lower number of player lives here
-        // }
+        Health healthScript = other.GetComponent<Health>(); // TODO change to reference proper script
+        if (healthScript != null)
+        {
+            healthScript.TakeDamage(1);
+            // TODO check if enemy collides with player and lower number of player lives here
+        }
         Destroy(gameObject);
     }
 
