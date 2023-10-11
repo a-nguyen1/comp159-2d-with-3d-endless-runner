@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    private void LateUpdate()
     {
         _velocity += Physics.gravity.y * gravityScale * Time.deltaTime;
         CheckForCollision();
@@ -33,7 +33,9 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
             {
-                _velocity = Mathf.Sqrt(jumpHeight * -2 * (Physics.gravity.y * gravityScale));
+                Debug.Log("jump");
+                // _velocity = Mathf.Sqrt(jumpHeight * -2 * (Physics.gravity.y * gravityScale));
+                _velocity = Mathf.Sqrt(jumpHeight * 2);
             }
         }
         transform.Translate(new Vector3(0, _velocity, 0) * Time.deltaTime);
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.collider.gameObject.CompareTag("Platform"))
             {
-                //Debug.Log("HIT");
+                Debug.Log("HIT");
                 _velocity = 0;
                 Vector3 surface = Physics.ClosestPoint(hit.collider.gameObject.transform.position, hit.collider,
                     transform.position, transform.rotation); //+ Vector3.up * hit.collider.transform.position.y
@@ -60,7 +62,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            _isOnGround = false;
+            // _isOnGround = false;
         }
     }
 }

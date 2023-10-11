@@ -145,6 +145,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2906047631422352927, guid: 8b08eeb5399b845b9835b327f0929c34, type: 3}
+      propertyPath: m_TagString
+      value: Platform
+      objectReference: {fileID: 0}
     - target: {fileID: 3130024758578062653, guid: 8b08eeb5399b845b9835b327f0929c34, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.1249
@@ -200,6 +204,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2906047631422352927, guid: 8b08eeb5399b845b9835b327f0929c34, type: 3}
       propertyPath: m_Name
+      value: Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906047631422352927, guid: 8b08eeb5399b845b9835b327f0929c34, type: 3}
+      propertyPath: m_TagString
       value: Platform
       objectReference: {fileID: 0}
     - target: {fileID: 3130024758578062653, guid: 8b08eeb5399b845b9835b327f0929c34, type: 3}
@@ -261,6 +269,7 @@ GameObject:
   - component: {fileID: 1095222340}
   - component: {fileID: 1095222339}
   - component: {fileID: 1095222338}
+  - component: {fileID: 1095222344}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -406,6 +415,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1095222344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095222337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d0826ceaabcb849b962d791c229d3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpHeight: 5
+  gravityScale: 0
+  layersToHit:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!4 &1117737193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3130024758578062653, guid: 8b08eeb5399b845b9835b327f0929c34, type: 3}
