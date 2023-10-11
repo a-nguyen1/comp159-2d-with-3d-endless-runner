@@ -9,11 +9,13 @@ public class PlatformGenerator : MonoBehaviour
     public float distanceBetween;
 
     private float platformWidth;
+    
     // Start is called before the first frame update
     void Start()
     {
        //Getting platform width
-        platformWidth = thePlatform.GetComponent<BoxCollider>().size.x;
+       platformWidth = thePlatform.GetComponent<BoxCollider>().size.x;
+        
     }
 
     // Update is called once per frame

@@ -8,7 +8,7 @@ public class Menus : MonoBehaviour
     //Opens GameScene
     public void PlayGame()
     {
-        SceneManager.LoadScene("Scenes/GameScene");
+        SceneManager.LoadScene("Scenes/PlayerTestScene"); //Eventually link back to 'Scenes/GameScene
     }
 
     //Opens Controls Scene
