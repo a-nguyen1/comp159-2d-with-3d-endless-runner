@@ -7,6 +7,7 @@ public class PlatformGenerator : MonoBehaviour
     public GameObject thePlatform;
     public Transform generationPoint;
     public float distanceBetween;
+    [SerializeField] private int secondsToWait;
 
     private float platformWidth;
     
@@ -15,7 +16,8 @@ public class PlatformGenerator : MonoBehaviour
     {
        //Getting platform width
        platformWidth = thePlatform.GetComponent<BoxCollider>().size.x;
-        
+       StartCoroutine("CaculateTime");
+       StartCoroutine(CaculateTime());
     }
 
     // Update is called once per frame
@@ -30,5 +32,18 @@ public class PlatformGenerator : MonoBehaviour
             //Generating the platform
             Instantiate(thePlatform, transform.position, Quaternion.identity);
         }
+        MoveGenPoint();
+    }
+
+    private void MoveGenPoint()
+    {
+        generationPoint.transform.position = new Vector3(generationPoint.position.x + 1, generationPoint.position.y,
+            generationPoint.position.z);
+    }
+
+    IEnumerator CaculateTime()
+    {
+        yield return new WaitForSeconds(secondsToWait);
+        MoveGenPoint();
     }
 }
