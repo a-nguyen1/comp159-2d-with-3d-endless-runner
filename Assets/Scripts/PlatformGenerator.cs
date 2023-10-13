@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,22 +9,30 @@ public class PlatformGenerator : MonoBehaviour
     public Transform generationPoint;
     public float distanceBetween;
     [SerializeField] private int secondsToWait;
-
     private float platformWidth;
     
+    
+
     // Start is called before the first frame update
     void Start()
     {
        //Getting platform width
        platformWidth = thePlatform.GetComponent<BoxCollider>().size.x;
-       StartCoroutine("CaculateTime");
-       StartCoroutine(CaculateTime());
+       
     }
 
     // Update is called once per frame
     void Update()
     {
         
+        
+    }
+
+    private void FixedUpdate()
+    {
+        StartCoroutine(CaculateGenTime());
+        
+       
         if (transform.position.x < generationPoint.position.x)
         {
             //Moving transform position to repeat making platforms
@@ -31,8 +40,9 @@ public class PlatformGenerator : MonoBehaviour
                 transform.position.y, transform.position.z);
             //Generating the platform
             Instantiate(thePlatform, transform.position, Quaternion.identity);
+            
         }
-        MoveGenPoint();
+        
     }
 
     private void MoveGenPoint()
@@ -41,7 +51,7 @@ public class PlatformGenerator : MonoBehaviour
             generationPoint.position.z);
     }
 
-    IEnumerator CaculateTime()
+    IEnumerator CaculateGenTime()
     {
         yield return new WaitForSeconds(secondsToWait);
         MoveGenPoint();
