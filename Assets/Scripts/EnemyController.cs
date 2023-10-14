@@ -27,13 +27,12 @@ public class EnemyController : MonoBehaviour
     }
     
     void OnTriggerEnter(Collider other) {
-        Health healthScript = other.GetComponent<Health>(); // TODO change to reference proper script
-        if (healthScript != null)
+        Health healthScript = other.GetComponent<Health>();
+        if (healthScript != null && other.gameObject.CompareTag("Player"))
         {
             healthScript.TakeDamage(1);
-            // TODO check if enemy collides with player and lower number of player lives here
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 
     public void SetEdge(float xEdge)

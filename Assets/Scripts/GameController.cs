@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -29,11 +30,36 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 playerPosition = player.transform.position;
-        if (playerPosition.y < deathPoint)
+        if (!gameOver)
         {
-            Destroy(player.gameObject);
-            Debug.Log("PLAYER DIEDED!!!");
+            var playerPosition = player.transform.position;
+            if (playerPosition.y < deathPoint)
+            {
+                gameOver = true;
+                player.GetComponent<Health>().SetInvincibility(false);
+                player.GetComponent<Health>().TakeDamage(float.PositiveInfinity);
+                Destroy(player.gameObject);
+                Debug.Log("PLAYER DIED!!!");
+                GameOver();
+            }
+        }
+    }
+
+    public void GameOver()
+    {
+        gameOver = true;
+        DestroyObjectsWithTag("Enemy");
+        DestroyObjectsWithTag("Platform");
+        Debug.Log("Game Over triggered");
+        // TODO enter game over screen
+    }
+
+    private static void DestroyObjectsWithTag(string tag)
+    {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag(tag);
+        foreach (GameObject obj in objects)
+        {
+            Destroy(obj);
         }
     }
 
@@ -41,7 +67,7 @@ public class GameController : MonoBehaviour
     {
         while (!gameOver)
         {
-            Vector3 enemyPosition = new Vector3(worldXDist, Random.Range(-worldYDist, worldYDist), 0);
+            Vector3 enemyPosition = new Vector3(worldXDist, Random.Range(-worldYDist, worldYDist), 1);
             GameObject newEnemy = Instantiate(enemy, enemyPosition, Quaternion.identity);
             EnemyController enemyScript = newEnemy.GetComponent<EnemyController>();
             enemyScript.SetSpeed(enemySpeed);
