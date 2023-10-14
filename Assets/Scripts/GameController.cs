@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject enemy;
     [SerializeField] private float enemySpawnDelay;
     [SerializeField] private float enemySpeed;
+    [SerializeField] private GameObject background;
+    [SerializeField] private GameObject lose;
+    [SerializeField] private Button restartButton;
     private bool gameOver = false;
     private float worldXDist;
     private float worldYDist;
@@ -19,6 +23,9 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        background.SetActive(false);
+        lose.SetActive(false);
+        
         worldYDist = Camera.main.orthographicSize;
         worldXDist = worldYDist * Screen.width / Screen.height;
         StartCoroutine("SpawnEnemies");
