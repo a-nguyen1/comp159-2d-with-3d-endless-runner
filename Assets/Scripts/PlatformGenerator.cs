@@ -21,34 +21,33 @@ public class PlatformGenerator : MonoBehaviour
        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-        
-    }
-
     private void FixedUpdate()
     {
-        StartCoroutine(CaculateGenTime());
+        if (generationPoint != null) //check if generationPoint exists
+        {
+            StartCoroutine(CaculateGenTime());
         
        
-        if (transform.position.x < generationPoint.position.x)
-        {
-            //Moving transform position to repeat making platforms
-            transform.position = new Vector3(transform.position.x + platformWidth + distanceBetween,
-                transform.position.y, transform.position.z);
-            //Generating the platform
-            Instantiate(thePlatform, transform.position, Quaternion.identity);
+            if (transform.position.x < generationPoint.position.x)
+            {
+                //Moving transform position to repeat making platforms
+                transform.position = new Vector3(transform.position.x + platformWidth + distanceBetween,
+                    transform.position.y, transform.position.z);
+                //Generating the platform
+                Instantiate(thePlatform, transform.position, Quaternion.identity);
             
+            }
         }
-        
     }
 
     private void MoveGenPoint()
     {
-        generationPoint.transform.position = new Vector3(generationPoint.position.x + 1, generationPoint.position.y,
-            generationPoint.position.z);
+        if (generationPoint != null)//Check if generationPoint exists
+        {
+            generationPoint.transform.position = new Vector3(generationPoint.position.x + 1, generationPoint.position.y,
+                generationPoint.position.z);
+        }
+        
     }
 
     IEnumerator CaculateGenTime()

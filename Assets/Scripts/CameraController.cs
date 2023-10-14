@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,12 +14,16 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetPosition = transform.position;
-        targetPosition.y = player.position.y + yOffset; // Only follow the y-position
-        targetPosition.x = fixedXPosition; // Keep the x-position fixed
+        if (player != null)
+        {
+            Vector3 targetPosition = transform.position;
+            targetPosition.y = player.position.y + yOffset; // Only follow the y-position
+            targetPosition.x = fixedXPosition; // Keep the x-position fixed
 
-        // Interpolate smoothly towards the target position
-        transform.position = Vector3.Lerp(transform.position, targetPosition,
-            followSpeed * Time.deltaTime);
+            // Interpolate smoothly towards the target position
+            transform.position = Vector3.Lerp(transform.position, targetPosition,
+                followSpeed * Time.deltaTime);
+        }
     }
+        
 }
