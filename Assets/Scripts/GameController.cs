@@ -10,18 +10,31 @@ public class GameController : MonoBehaviour
     private bool gameOver = false;
     private float worldXDist;
     private float worldYDist;
+
+    //PlayerController reference
+    private PlayerController player;
+    [SerializeField] private float deathPoint; //Set to 5 in the Inspector
+    
     // Start is called before the first frame update
     void Start()
     {
         worldYDist = Camera.main.orthographicSize;
         worldXDist = worldYDist * Screen.width / Screen.height;
         StartCoroutine("SpawnEnemies");
+        
+        //Gets the Player game object
+        player = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Vector3 playerPosition = player.transform.position;
+        if (playerPosition.y < deathPoint)
+        {
+            Destroy(player.gameObject);
+            Debug.Log("PLAYER DIEDED!!!");
+        }
     }
 
     private IEnumerator SpawnEnemies()
