@@ -23,8 +23,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        background.SetActive(false);
-        lose.SetActive(false);
+        background.SetActive(gameOver);
+        lose.SetActive(gameOver);
         
         worldYDist = Camera.main.orthographicSize;
         worldXDist = worldYDist * Screen.width / Screen.height;
@@ -58,7 +58,9 @@ public class GameController : MonoBehaviour
         DestroyObjectsWithTag("Enemy");
         DestroyObjectsWithTag("Platform");
         Debug.Log("Game Over triggered");
-        // TODO enter game over screen
+
+        background.SetActive(gameOver);
+        lose.SetActive(gameOver);
     }
 
     private static void DestroyObjectsWithTag(string tag)
