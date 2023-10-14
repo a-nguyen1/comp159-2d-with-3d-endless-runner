@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
@@ -25,6 +26,8 @@ public class GameController : MonoBehaviour
     {
         background.SetActive(gameOver);
         lose.SetActive(gameOver);
+
+        restartButton.onClick.AddListener(RestartButton);
         
         worldYDist = Camera.main.orthographicSize;
         worldXDist = worldYDist * Screen.width / Screen.height;
@@ -63,6 +66,12 @@ public class GameController : MonoBehaviour
         lose.SetActive(gameOver);
     }
 
+    public void RestartButton()
+    {
+        background.SetActive(gameOver);
+        lose.SetActive(gameOver);
+        SceneManager.LoadScene("GameScene");
+    }
     private static void DestroyObjectsWithTag(string tag)
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag(tag);
