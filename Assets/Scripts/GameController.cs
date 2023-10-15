@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject enemy;
     [SerializeField] private float enemySpawnDelay;
     [SerializeField] private float enemySpeed;
+    [SerializeField] private float enemySpeedScale = 0.005f;
     [SerializeField] private GameObject background;
     [SerializeField] private GameObject lose;
     [SerializeField] private Button restartButton;
@@ -92,6 +93,7 @@ public class GameController : MonoBehaviour
             GameObject newEnemy = Instantiate(enemy, enemyPosition, Quaternion.identity);
             EnemyController enemyScript = newEnemy.GetComponent<EnemyController>();
             enemyScript.SetSpeed(enemySpeed);
+            enemySpeed += enemySpeedScale;
             enemyScript.SetEdge(-worldXDist);
             yield return new WaitForSeconds(enemySpawnDelay);
         }
