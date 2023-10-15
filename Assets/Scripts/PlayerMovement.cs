@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
         if (!isJumping && OnGround()) //Being OnGround implies that you canJump
         {
             isJumping = true;
-            
             Jump();
         }
         else
@@ -45,7 +44,8 @@ public class PlayerMovement : MonoBehaviour
             //Ideally, this will be a multi-stage jump depending on how long you hold down your jump key.
             //Thus a parabola with differing jump heights
             //But how easy is it to manipulate force and gravity to achieve this?
-            throw new Exception("Unimplemented");
+            rb.AddForce(Vector3.up * 3,ForceMode.Impulse);
+            ///throw new Exception("Unimplemented");
         }
     }
     private bool OnGround()
