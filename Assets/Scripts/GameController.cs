@@ -29,12 +29,12 @@ public class GameController : MonoBehaviour
 
         restartButton.onClick.AddListener(RestartButton);
         
+        //Gets the Player game object
+        player = FindObjectOfType<PlayerController>();
+        
         worldYDist = Camera.main.orthographicSize;
         worldXDist = worldYDist * Screen.width / Screen.height;
         StartCoroutine("SpawnEnemies");
-        
-        //Gets the Player game object
-        player = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -85,7 +85,10 @@ public class GameController : MonoBehaviour
     {
         while (!gameOver)
         {
-            Vector3 enemyPosition = new Vector3(worldXDist, Random.Range(-worldYDist, worldYDist), 1);
+            var playerY = player.transform.position.y;
+            float minimumY = playerY - worldYDist;
+            float maximumY = playerY + worldYDist;
+            Vector3 enemyPosition = new Vector3(worldXDist, Random.Range(minimumY, maximumY), 1);
             GameObject newEnemy = Instantiate(enemy, enemyPosition, Quaternion.identity);
             EnemyController enemyScript = newEnemy.GetComponent<EnemyController>();
             enemyScript.SetSpeed(enemySpeed);
