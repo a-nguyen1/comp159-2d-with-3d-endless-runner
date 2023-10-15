@@ -551,6 +551,7 @@ MonoBehaviour:
   enemy: {fileID: 7723028029646631213, guid: 02b503be46539f247ab84cbea6b836b3, type: 3}
   enemySpawnDelay: 1
   enemySpeed: 0.05
+  enemySpeedScale: 0.005
   background: {fileID: 139262114}
   lose: {fileID: 781552777}
   restartButton: {fileID: 564028333}

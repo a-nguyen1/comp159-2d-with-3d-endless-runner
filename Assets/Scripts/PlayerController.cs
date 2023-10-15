@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.TextCore.Text;
@@ -22,11 +23,20 @@ public class PlayerController : MonoBehaviour
     //private Ray _ray;
     
     
+    private GameController _gc; //GameController reference
+    private Collider _lastTouchedPlatform; //Using to check for the last platform touched
+    
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         //_isOnGround = false;
+        
+        
+        //Initializing _gc and _lastTouchedPlatform
+        _gc = FindObjectOfType<GameController>();
+        _lastTouchedPlatform = null;
+        //END OF INITIALIZATION
     }
 
     // Update is called once per frame
@@ -90,4 +100,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //checks if player has collided with a platform
+    //and only increases score when landing on a new platform
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Platform") && collision != _lastTouchedPlatform)
+        {
+            _gc.IncrementScore();
+            _lastTouchedPlatform = collision;
+        }
+    }
 }

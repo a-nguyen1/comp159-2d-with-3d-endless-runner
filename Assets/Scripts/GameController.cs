@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameController : MonoBehaviour
 {
@@ -22,6 +24,9 @@ public class GameController : MonoBehaviour
     private PlayerController player;
     [SerializeField] private float deathPoint; //Set to 5 in the Inspector
     
+    //Player Score
+    private int playerScore;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +41,9 @@ public class GameController : MonoBehaviour
         worldYDist = Camera.main.orthographicSize;
         worldXDist = worldYDist * Screen.width / Screen.height;
         StartCoroutine("SpawnEnemies");
+        
+        //Initialize playerScore
+        playerScore = 0;
     }
 
     // Update is called once per frame
@@ -63,6 +71,8 @@ public class GameController : MonoBehaviour
         DestroyObjectsWithTag("Platform");
         Debug.Log("Game Over triggered");
 
+        Debug.Log("PLAYER FINAL SCORE IS: " + playerScore);
+        
         background.SetActive(gameOver);
         lose.SetActive(gameOver);
     }
@@ -97,5 +107,11 @@ public class GameController : MonoBehaviour
             enemyScript.SetEdge(-worldXDist);
             yield return new WaitForSeconds(enemySpawnDelay);
         }
+    }
+
+    public void IncrementScore()
+    {
+        playerScore++;
+        Debug.Log("PLAYER SCORE IS: " + playerScore);
     }
 }
