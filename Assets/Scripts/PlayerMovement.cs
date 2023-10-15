@@ -10,11 +10,12 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private float maxJumpHeight;
-    [SerializeField] private float fastFallMultiplier;
+    [SerializeField] private float fullHopFastFallMultiplier;
+    [SerializeField] private float shortHopFastFallMultiplier;
     private bool jumpRequest;
     private bool isHoldingJump;
 
-    private float playerMaxJumpHeight;
+    //private float playerMaxJumpHeight;
     //private RaycastHit info;
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
         jumpRequest = false;
         isJumping = false;
         rb = GetComponent<Rigidbody>();
-        playerMaxJumpHeight = transform.position.y + maxJumpHeight;
+        //playerMaxJumpHeight = transform.position.y + maxJumpHeight;
     }
 
     // Update is called once per frame
@@ -46,10 +47,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow))
         {
             jumpRequest = true;
+            isHoldingJump = true;
         }
         else
         {
             jumpRequest = false;
+            isHoldingJump = false;
         }
     }
 
@@ -72,13 +75,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector3.up * maxJumpHeight,ForceMode.Impulse);
             isHoldingJump = Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow);
-            if (isHoldingJump)
-            {
-                if (!Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.UpArrow))
-                {
-                    isHoldingJump = false;
-                }
-            }
             ///throw new Exception("Unimplemented");
         }
     }
@@ -87,16 +83,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb.velocity.y < 0)
         {
-            rb.velocity += new Vector3(0, Physics.gravity.y * fastFallMultiplier * Time.deltaTime, 0);
+            rb.velocity += new Vector3(0, Physics.gravity.y * fullHopFastFallMultiplier * Time.deltaTime, 0);
         } 
         else if (rb.velocity.y > 0 && !isHoldingJump)
         {
-            rb.velocity += new Vector3(0, Physics.gravity.y * fastFallMultiplier * 2 * Time.deltaTime, 0);
+            rb.velocity += new Vector3(0, Physics.gravity.y * shortHopFastFallMultiplier * Time.deltaTime, 0);
         }
     }
     private bool IsOnGround()
     {
-        playerMaxJumpHeight = transform.position.y + maxJumpHeight;
+        //playerMaxJumpHeight = transform.position.y + maxJumpHeight;
         Ray ray = new Ray(transform.position, -transform.up);
         return Physics.SphereCast(ray, 0.1f, 1f, whatIsGround);
     }
