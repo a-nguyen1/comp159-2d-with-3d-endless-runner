@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,7 +26,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private float deathPoint; //Set to 5 in the Inspector
     
     //Player Score
-    private int playerScore;
+    private int _playerScore;
+    [SerializeField] private TextMeshProUGUI scoreCounter;
     
     // Start is called before the first frame update
     void Start()
@@ -43,7 +45,7 @@ public class GameController : MonoBehaviour
         StartCoroutine("SpawnEnemies");
         
         //Initialize playerScore
-        playerScore = 0;
+        _playerScore = 0;
     }
 
     // Update is called once per frame
@@ -58,7 +60,6 @@ public class GameController : MonoBehaviour
                 player.GetComponent<Health>().SetInvincibility(false);
                 player.GetComponent<Health>().TakeDamage(float.PositiveInfinity);
                 Destroy(player.gameObject);
-                Debug.Log("PLAYER DIED!!!");
                 GameOver();
             }
         }
@@ -71,7 +72,7 @@ public class GameController : MonoBehaviour
         DestroyObjectsWithTag("Platform");
         Debug.Log("Game Over triggered");
 
-        Debug.Log("PLAYER FINAL SCORE IS: " + playerScore);
+        Debug.Log("PLAYER FINAL SCORE IS: " + _playerScore);
         
         background.SetActive(gameOver);
         lose.SetActive(gameOver);
@@ -111,7 +112,7 @@ public class GameController : MonoBehaviour
 
     public void IncrementScore()
     {
-        playerScore++;
-        Debug.Log("PLAYER SCORE IS: " + playerScore);
+        _playerScore++;
+        scoreCounter.text = _playerScore.ToString();
     }
 }

@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour
         //Initializing _gc and _lastTouchedPlatform
         _gc = FindObjectOfType<GameController>();
         _lastTouchedPlatform = null;
-        //END OF INITIALIZATION
     }
 
     // Update is called once per frame
