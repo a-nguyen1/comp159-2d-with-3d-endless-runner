@@ -10,7 +10,7 @@ using Vector2 = System.Numerics.Vector2;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
-    private bool _isOnGround;
+    //private bool _isOnGround;
     private Rigidbody rb;
     [SerializeField] private float jumpHeight = 0f;
     [SerializeField] private float lowJump = 2.5f;
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
-        _isOnGround = false;
+        //_isOnGround = false;
     }
 
     // Update is called once per frame
@@ -81,12 +81,12 @@ public class PlayerController : MonoBehaviour
                 //Currently this is the best way I've gotten the floor snapping to work.
                 //Still ends up stuck in the ground sometimes.
                 transform.position = new Vector3(transform.position.x, surface.y + 0.501f, transform.position.z);*/
-                _isOnGround = true;
+                //_isOnGround = true;
             }
         }
         else
         {
-            _isOnGround = false;
+            //_isOnGround = false;
         }
     }
 

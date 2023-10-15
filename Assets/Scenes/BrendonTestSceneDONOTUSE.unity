@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 232248702}
   - component: {fileID: 232248705}
   - component: {fileID: 232248701}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 936895339}
   - component: {fileID: 936895338}
   - component: {fileID: 936895337}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -375,6 +375,7 @@ GameObject:
   - component: {fileID: 1333507205}
   - component: {fileID: 1333507209}
   - component: {fileID: 1333507204}
+  - component: {fileID: 1333507210}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -389,7 +390,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1333507203}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52d0826ceaabcb849b962d791c229d3f, type: 3}
   m_Name: 
@@ -397,6 +398,9 @@ MonoBehaviour:
   jumpHeight: 10
   lowJump: 5
   gravityScale: 10
+  layersToHit:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!136 &1333507205
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -512,6 +516,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1333507210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333507203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0947f30bbffbc488151abc0784fe1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
