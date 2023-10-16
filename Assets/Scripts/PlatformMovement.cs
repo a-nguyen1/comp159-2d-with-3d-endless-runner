@@ -15,4 +15,9 @@ public class PlatformMovement : MonoBehaviour
         transform.position += Vector3.left * (_speed * Time.deltaTime);
         _speed += accel * Time.deltaTime * 0.5f;
     }
+
+    public float GetPlatformSpeed()
+    {
+        return _speed;
+    }
 }

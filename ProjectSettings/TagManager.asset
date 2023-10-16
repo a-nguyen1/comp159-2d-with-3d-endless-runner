@@ -43,3 +43,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ocean
+    uniqueID: 3102676371
+    locked: 0
+  - name: Fish
+    uniqueID: 806948069
+    locked: 0
+  - name: Ground
+    uniqueID: 3268880997
+    locked: 0
