@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-
 public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject enemy;
@@ -21,7 +20,6 @@ public class GameController : MonoBehaviour
     private bool gameOver = false;
     private float worldXDist;
     private float worldYDist;
-
     //PlayerController reference
     private PlayerController player;
     [SerializeField] private float deathPoint; //Set to 5 in the Inspector
@@ -38,14 +36,14 @@ public class GameController : MonoBehaviour
         finalScore.enabled = gameOver;
 
         restartButton.onClick.AddListener(RestartButton);
-        
+
         //Gets the Player game object
         player = FindObjectOfType<PlayerController>();
         
         worldYDist = Camera.main.orthographicSize;
         worldXDist = worldYDist * Screen.width / Screen.height;
         StartCoroutine("SpawnEnemies");
-        
+
         //Initialize playerScore
         _playerScore = 0;
 
@@ -68,23 +66,20 @@ public class GameController : MonoBehaviour
             }
         }
     }
-
     public void GameOver()
     {
         gameOver = true;
         DestroyObjectsWithTag("Enemy");
         DestroyObjectsWithTag("Platform");
         Debug.Log("Game Over triggered");
-
         Debug.Log("PLAYER FINAL SCORE IS: " + _playerScore);
-        
+
         background.SetActive(gameOver);
         lose.SetActive(gameOver);
-        
+
         scoreCounter.enabled = false;
 
         finalScore.enabled = gameOver;
-        
     }
 
     public void RestartButton()
@@ -101,7 +96,6 @@ public class GameController : MonoBehaviour
             Destroy(obj);
         }
     }
-
     private IEnumerator SpawnEnemies()
     {
         while (!gameOver)
@@ -118,7 +112,6 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(enemySpawnDelay);
         }
     }
-
     public void IncrementScore()
     {
         _playerScore++;
