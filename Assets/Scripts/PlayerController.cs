@@ -1,104 +1,49 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
-using UnityEngine.TextCore.Text;
-using Vector2 = System.Numerics.Vector2;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    //private bool _isOnGround;
+    private bool isJumping;
     private Rigidbody rb;
-    [SerializeField] private float jumpHeight = 0f;
-    [SerializeField] private float lowJump = 2.5f;
-    [SerializeField] private float gravityScale = 2f;
-    private float _velocity;
-    [SerializeField] private LayerMask layersToHit;
-    private CharacterController _characterController;
-
-    //private Ray _ray;
-    
+    private bool jumpRequest;
+    private bool isHoldingJump;
+    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private float maxJumpHeight;
+    [SerializeField] private float fullHopFastFallMultiplier;
+    [SerializeField] private float shortHopFastFallMultiplier;
     
     private GameController _gc; //GameController reference
     private Collider _lastTouchedPlatform; //Using to check for the last platform touched
-    
-    private void Start()
+
+    //private float playerMaxJumpHeight;
+    //private RaycastHit info;
+    // Start is called before the first frame update
+    void Start()
     {
-        _characterController = GetComponent<CharacterController>();
+        isHoldingJump = false;
+        jumpRequest = false;
+        isJumping = false;
         rb = GetComponent<Rigidbody>();
-        //_isOnGround = false;
-        
-        
-        //Initializing _gc and _lastTouchedPlatform
         _gc = FindObjectOfType<GameController>();
         _lastTouchedPlatform = null;
+        //playerMaxJumpHeight = transform.position.y + maxJumpHeight;
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
-        //CheckForCollision();
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            rb.velocity = Vector3.up * jumpHeight;
-        }
-        switch (rb.velocity.y)
-        {
-            case < 0:
-                rb.velocity += (Physics.gravity.y * (gravityScale - 1) * Time.deltaTime) * Vector3.up;
-                break;
-            case > 0 when !Input.GetKey(KeyCode.Space) || !Input.GetKey(KeyCode.UpArrow):
-                rb.velocity += (Physics.gravity.y * (lowJump - 1) * Time.deltaTime) * Vector3.up;
-                break;
-        }
-
-
-        /*_velocity += Physics.gravity.y * gravityScale * Time.deltaTime;
-        //CheckForCollision();
-        if (_isOnGround)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                Debug.Log("jump");
-                // _velocity = Mathf.Sqrt(jumpHeight * -2 * (Physics.gravity.y * gravityScale));
-                _velocity = Mathf.Sqrt(jumpHeight * 2);
-            }
-        }
-        transform.Translate(new Vector3(0, _velocity, 0) * Time.deltaTime);*/
+        JumpRequest();
     }
 
-    private void CheckForCollision()
+    private void FixedUpdate()
     {
-        //_ray = new Ray(transform.position, -transform.up);
-        Vector3 p1 = transform.position + _characterController.center +
-                     -Vector3.up * (-_characterController.height * 0.5f);
-        Vector3 p2 = p1 + -Vector3.up * _characterController.height;
-        if (Physics.CapsuleCast(p1, p2, _characterController.radius, 
-                -transform.up, out RaycastHit hit, Mathf.Infinity, layersToHit))
+        if (jumpRequest)
         {
-            if (hit.collider.gameObject.CompareTag("Platform"))
-            {
-                Debug.Log("HIT");
-               /* _velocity = 0;
-                Vector3 surface = Physics.ClosestPoint(hit.collider.gameObject.transform.position, hit.collider,
-                    transform.position, transform.rotation); //+ Vector3.up * hit.collider.transform.position.y
-                
-                //Currently this is the best way I've gotten the floor snapping to work.
-                //Still ends up stuck in the ground sometimes.
-                transform.position = new Vector3(transform.position.x, surface.y + 0.501f, transform.position.z);*/
-                //_isOnGround = true;
-            }
+            HandleJump();
         }
-        else
-        {
-            //_isOnGround = false;
-        }
+        ScaleGravity();
     }
-
     //checks if player has collided with a platform
     //and only increases score when landing on a new platform
     private void OnTriggerEnter(Collider collision)
@@ -109,4 +54,79 @@ public class PlayerController : MonoBehaviour
             _lastTouchedPlatform = collision;
         }
     }
+
+    private void JumpRequest()
+    {
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow))
+        {
+            jumpRequest = true;
+            isHoldingJump = true;
+        }
+        else
+        {
+            jumpRequest = false;
+            isHoldingJump = false;
+        }
+    }
+
+    private void HandleJump()
+    {
+        if (!isJumping && IsOnGround()) //Being OnGround implies that you canJump
+        {
+            isJumping = true;
+            Jump();
+        }
+        else
+        {
+            isJumping = false;
+        }
+    }
+
+    private void Jump()
+    {
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow))
+        {
+            rb.AddForce(Vector3.up * maxJumpHeight,ForceMode.Impulse);
+            isHoldingJump = Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow);
+            ///throw new Exception("Unimplemented");
+        }
+    }
+
+    private void ScaleGravity()
+    {
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += new Vector3(0, Physics.gravity.y * fullHopFastFallMultiplier * Time.deltaTime, 0);
+        } 
+        else if (rb.velocity.y > 0 && !isHoldingJump)
+        {
+            rb.velocity += new Vector3(0, Physics.gravity.y * shortHopFastFallMultiplier * Time.deltaTime, 0);
+        }
+    }
+    private bool IsOnGround()
+    {
+        //playerMaxJumpHeight = transform.position.y + maxJumpHeight;
+        Ray ray = new Ray(transform.position, -transform.up);
+        return Physics.SphereCast(ray, 0.1f, 1f, whatIsGround);
+    }
+    
+    
+    /*
+    private bool IsPlatformBeneath()
+    {
+        Ray ray = new Ray(transform.position, -transform.up);
+        bool temp = Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, whatIsGround);
+        info = hit;
+        return temp;
+    }
+
+    private void SnapCharacterToPlatform()
+    {
+        if (IsPlatformBeneath() && OnGround())
+        {
+            transform.position = new Vector3(transform.position.x, info.transform.position.y + 0.1f, transform.position.z);
+            //Set Gravity to 0 as to make sure the Player won't fall and repeatedly cause snapping
+        }
+    }
+    */
 }
