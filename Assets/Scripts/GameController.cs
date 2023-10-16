@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject background;
     [SerializeField] private GameObject lose;
     [SerializeField] private Button restartButton;
+    [SerializeField] private Text finalScore;
     private bool gameOver = false;
     private float worldXDist;
     private float worldYDist;
@@ -34,6 +35,7 @@ public class GameController : MonoBehaviour
     {
         background.SetActive(gameOver);
         lose.SetActive(gameOver);
+        finalScore.enabled = gameOver;
 
         restartButton.onClick.AddListener(RestartButton);
         
@@ -46,6 +48,8 @@ public class GameController : MonoBehaviour
         
         //Initialize playerScore
         _playerScore = 0;
+        
+        finalScore.text = "Final Score: " + _playerScore.ToString();
     }
 
     // Update is called once per frame
@@ -76,6 +80,10 @@ public class GameController : MonoBehaviour
         
         background.SetActive(gameOver);
         lose.SetActive(gameOver);
+        
+        scoreCounter.enabled = false;
+
+        finalScore.enabled = gameOver;
     }
 
     public void RestartButton()
@@ -114,5 +122,6 @@ public class GameController : MonoBehaviour
     {
         _playerScore++;
         scoreCounter.text = _playerScore.ToString();
+        finalScore.text = "Final Score: " + _playerScore.ToString();
     }
 }
