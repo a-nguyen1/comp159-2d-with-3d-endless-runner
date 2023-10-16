@@ -833,7 +833,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100700, guid: 427f72e3e110e5145bf4956336b40f6f, type: 3}
       propertyPath: m_Name
-      value: Walk
+      value: Run
       objectReference: {fileID: 0}
     - target: {fileID: 400700, guid: 427f72e3e110e5145bf4956336b40f6f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -875,6 +875,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 427f72e3e110e5145bf4956336b40f6f, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: fcd4de5ffa6d77f47a1da32a7f2fb699, type: 3}
     - target: {fileID: 9500000, guid: 427f72e3e110e5145bf4956336b40f6f, type: 3}
       propertyPath: m_Controller
       value: 
