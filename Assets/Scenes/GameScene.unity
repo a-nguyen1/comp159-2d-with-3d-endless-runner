@@ -1450,7 +1450,7 @@ MonoBehaviour:
   thePlatform: {fileID: 2906047631422352927, guid: 8b08eeb5399b845b9835b327f0929c34, type: 3}
   generationPoint: {fileID: 1438786396}
   distanceBetween: 5
-  secondsToWait: 1
+  secondsToWait: 0
 --- !u!4 &1921236585
 Transform:
   m_ObjectHideFlags: 0
