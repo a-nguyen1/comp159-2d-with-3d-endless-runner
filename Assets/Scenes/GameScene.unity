@@ -690,6 +690,7 @@ MonoBehaviour:
   background: {fileID: 139262114}
   lose: {fileID: 781552777}
   restartButton: {fileID: 564028333}
+  finalScore: {fileID: 1413275560}
   deathPoint: -5
   scoreCounter: {fileID: 784480683}
 --- !u!4 &916423577
