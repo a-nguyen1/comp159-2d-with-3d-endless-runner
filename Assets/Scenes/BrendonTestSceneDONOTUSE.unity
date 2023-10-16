@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 1333507206}
   - component: {fileID: 1333507205}
   - component: {fileID: 1333507209}
-  - component: {fileID: 1333507204}
+  - component: {fileID: 1333507210}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -501,24 +501,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1333507204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1333507203}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52d0826ceaabcb849b962d791c229d3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpHeight: 10
-  lowJump: 5
-  gravityScale: 10
-  layersToHit:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!136 &1333507205
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -634,6 +616,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1333507210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333507203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f422709053a5142b9d91b9e01c49f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  maxJumpHeight: 0
+  fullHopFastFallMultiplier: 0
+  shortHopFastFallMultiplier: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
