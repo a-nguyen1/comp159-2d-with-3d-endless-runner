@@ -783,9 +783,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 7723028029646631213, guid: 02b503be46539f247ab84cbea6b836b3, type: 3}
-  enemySpawnDelay: 2
-  enemySpeed: 0.05
-  enemySpeedScale: 0.005
+  enemySpawnDelay: 3
+  enemySpeed: 0.125
+  enemySpeedScale: 0.125
   background: {fileID: 139262114}
   lose: {fileID: 781552777}
   restartButton: {fileID: 564028333}
@@ -1923,6 +1923,7 @@ MonoBehaviour:
   generationPoint: {fileID: 1438786396}
   distanceBetween: 5
   secondsToWait: 0
+  maxHeight: 8
 --- !u!4 &1921236585
 Transform:
   m_ObjectHideFlags: 0
