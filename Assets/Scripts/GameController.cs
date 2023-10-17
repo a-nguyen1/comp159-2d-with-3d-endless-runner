@@ -117,7 +117,7 @@ public class GameController : MonoBehaviour
         while (!gameOver)
         {
             var playerY = player.transform.position.y;
-            float minimumY = playerY - worldYDist;
+            float minimumY = playerY;
             float maximumY = playerY + worldYDist;
             Vector3 enemyPosition = new Vector3(worldXDist, Random.Range(minimumY, maximumY), 1);
             GameObject newEnemy = Instantiate(enemy, enemyPosition, Quaternion.identity);
@@ -131,7 +131,7 @@ public class GameController : MonoBehaviour
     public void IncrementScore()
     {
         _playerScore++;
-        scoreCounter.text = _playerScore.ToString();
+        scoreCounter.text = "Score: " + _playerScore.ToString();
         finalScore.text = "Final Score: " + _playerScore.ToString();
     }
 }
