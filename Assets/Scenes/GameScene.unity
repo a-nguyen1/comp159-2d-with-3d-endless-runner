@@ -1284,8 +1284,8 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  maxJumpHeight: 10
-  fullHopFastFallMultiplier: 7
+  maxJumpHeight: 7
+  fullHopFastFallMultiplier: 5
   shortHopFastFallMultiplier: 3
 --- !u!1 &1413275558
 GameObject:
