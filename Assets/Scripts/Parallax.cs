@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class Parallax : MonoBehaviour
 {
     private float moveSpeed;
     private PlatformMovement p;
-    //private float currentX;
+    private float currentX;
 
     [SerializeField] private float moveSpeedMultiplier;
 
@@ -14,17 +15,19 @@ public class Parallax : MonoBehaviour
 
     private float singleTextureWidth;
     // Start is called before the first frame update
+    
+
     void Start()
     {
         SetupTexture();
         p = FindObjectOfType<PlatformMovement>();
-        //currentX = transform.position.x;
+        currentX = transform.position.x;
     }
 
     private void SetupTexture()
     {
         Sprite sprite = GetComponent<SpriteRenderer>().sprite;
-        singleTextureWidth = sprite.texture.width * transform.localScale.x / sprite.pixelsPerUnit;
+        singleTextureWidth = sprite.texture.width/ sprite.pixelsPerUnit  * transform.localScale.x ;
     }
 
     private void Scroll()
@@ -40,7 +43,8 @@ public class Parallax : MonoBehaviour
         if (Mathf.Abs(transform.position.x) - singleTextureWidth > 0)
         {
             //Assumes that our local X position is set to 0. Gets funky with currentX.
-            transform.position = new Vector3(0, transform.position.y, transform.position.z);
+            transform.position = new Vector3(currentX, transform.position.y, transform.position.z);
+            //transform.position = new Vector3(0, transform.position.y, transform.position.z);
         }
     }
     

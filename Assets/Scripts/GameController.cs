@@ -17,20 +17,25 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject lose;
     [SerializeField] private Button restartButton;
     [SerializeField] private Text finalScore;
+    [SerializeField] private GameObject platformGenerator;
     private bool gameOver = false;
     private float worldXDist;
     private float worldYDist;
     //PlayerController reference
     private PlayerController player;
+    private Parallax[] parallax;
+    private PlatformGenerator _platformGenerator;
     [SerializeField] private float deathPoint; //Set to 5 in the Inspector
     
     //Player Score
     private int _playerScore;
     [SerializeField] private TextMeshProUGUI scoreCounter;
     
+
     // Start is called before the first frame update
     void Start()
     {
+        _platformGenerator = platformGenerator.GetComponent<PlatformGenerator>();
         background.SetActive(gameOver);
         lose.SetActive(gameOver);
         finalScore.enabled = gameOver;
@@ -46,6 +51,12 @@ public class GameController : MonoBehaviour
 
         //Initialize playerScore
         _playerScore = 0;
+        
+        //Grabs the parallax script from objects with Parallax script
+        parallax = FindObjectsByType<Parallax>(FindObjectsSortMode.None);
+        
+        //Starts the platform generation
+        _platformGenerator.enabled = true;
 
         finalScore.text = "Final Score: " + _playerScore.ToString();
     }
@@ -73,9 +84,14 @@ public class GameController : MonoBehaviour
         DestroyObjectsWithTag("Platform");
         Debug.Log("Game Over triggered");
         Debug.Log("PLAYER FINAL SCORE IS: " + _playerScore);
+        foreach (Parallax p in  parallax)
+        {
+            p.enabled = false;
+        }
 
         background.SetActive(gameOver);
         lose.SetActive(gameOver);
+        _platformGenerator.enabled = false;
 
         scoreCounter.enabled = false;
 

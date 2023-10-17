@@ -10,7 +10,8 @@ public class PlatformGenerator : MonoBehaviour
     public float distanceBetween;
     [SerializeField] private int secondsToWait;
     private float platformWidth;
-    
+    private Parallax[] parallax;
+    private bool hasStarted;
     
 
     // Start is called before the first frame update
@@ -18,7 +19,8 @@ public class PlatformGenerator : MonoBehaviour
     {
        //Getting platform width
        platformWidth = thePlatform.GetComponent<BoxCollider>().size.x;
-       
+       parallax = FindObjectsByType<Parallax>(FindObjectsSortMode.None);
+       hasStarted = true;
     }
 
     private void FixedUpdate()
@@ -26,8 +28,6 @@ public class PlatformGenerator : MonoBehaviour
         if (generationPoint != null) //check if generationPoint exists
         {
             StartCoroutine(CaculateGenTime());
-        
-       
             if (transform.position.x < generationPoint.position.x)
             {
                 //Moving transform position to repeat making platforms
@@ -35,7 +35,15 @@ public class PlatformGenerator : MonoBehaviour
                     transform.position.y, transform.position.z);
                 //Generating the platform
                 Instantiate(thePlatform, transform.position, Quaternion.identity);
-            
+                if (hasStarted)
+                {
+                    foreach (Parallax p in parallax)
+                    {
+                        p.enabled = true;
+                    }
+
+                    hasStarted = false;
+                }
             }
         }
     }
@@ -49,6 +57,7 @@ public class PlatformGenerator : MonoBehaviour
         }
         
     }
+    
 
     IEnumerator CaculateGenTime()
     {
