@@ -1284,9 +1284,9 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  maxJumpHeight: 0
-  fullHopFastFallMultiplier: 0
-  shortHopFastFallMultiplier: 0
+  maxJumpHeight: 10
+  fullHopFastFallMultiplier: 7
+  shortHopFastFallMultiplier: 3
 --- !u!1 &1413275558
 GameObject:
   m_ObjectHideFlags: 0
@@ -2278,4 +2278,4 @@ SceneRoots:
   - {fileID: 1393527506}
   - {fileID: 84156010}
   - {fileID: 1281494021}
-
+  - {fileID: 1935306547}
