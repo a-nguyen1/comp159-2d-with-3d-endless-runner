@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlatformGenerator : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class PlatformGenerator : MonoBehaviour
     private float platformWidth;
     private Parallax[] parallax;
     private bool hasStarted;
+    [SerializeField] private int maxHeight = 8;
+    private float platformY;
+    private float platformHeight;
     
 
     // Start is called before the first frame update
@@ -21,6 +25,7 @@ public class PlatformGenerator : MonoBehaviour
        platformWidth = thePlatform.GetComponent<BoxCollider>().size.x;
        parallax = FindObjectsByType<Parallax>(FindObjectsSortMode.None);
        hasStarted = true;
+       platformY = transform.position.y;
     }
 
     private void FixedUpdate()
@@ -32,8 +37,10 @@ public class PlatformGenerator : MonoBehaviour
             {
                 //Moving transform position to repeat making platforms
                 transform.position = new Vector3(transform.position.x + platformWidth + distanceBetween,
-                    transform.position.y, transform.position.z);
+                    platformHeight, transform.position.z);
                 //Generating the platform
+                platformHeight = Random.Range(platformY, maxHeight);
+                
                 Instantiate(thePlatform, transform.position, Quaternion.identity);
                 if (hasStarted)
                 {
